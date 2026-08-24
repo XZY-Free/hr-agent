@@ -1,0 +1,987 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": -10497.50316089778,
+        "y": -1589.716018060182
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "core.app.Welcome Text",
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "core.app.Chat Variable",
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "core.app.Question Guide",
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": null
+        }
+      ],
+      "outputs": [],
+      "isFolded": false
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": -9968.06500637069,
+        "y": -1300.4014101608218
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "required": true,
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "label": "common:core.module.input.label.user question",
+          "type": "static",
+          "valueType": "string",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "s9WJYYrUK8Sc",
+      "name": "判断器#12",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": -8687.12420015422,
+        "y": -731.423824242195
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "448745",
+                    "userChatInput"
+                  ],
+                  "condition": "reg",
+                  "value": "/今天|今日|明天|明日|后天|后日/"
+                }
+              ]
+            },
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "448745",
+                    "userChatInput"
+                  ],
+                  "condition": "reg",
+                  "value": "/周|星期|礼拜/"
+                }
+              ]
+            }
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "rxItT4AdHp2Ze5xj",
+      "name": "测试-AI考勤-快捷（昨天前天B）",
+      "intro": "",
+      "avatar": "core/app/type/workflowFill",
+      "flowNodeType": "appModule",
+      "showStatus": true,
+      "position": {
+        "x": -7290,
+        "y": -630
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_forbid_stream",
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "label": "workflow:template.forbid_stream",
+          "description": "workflow:template.forbid_stream_desc",
+          "value": false
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "workflow:user_question_tool_desc",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ]
+        },
+        {
+          "key": "typeName",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "typeName",
+          "debugLabel": "typeName",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.typeName$}}"
+        },
+        {
+          "key": "startDate",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "startDate",
+          "debugLabel": "startDate",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.startDate$}}"
+        },
+        {
+          "key": "startTime",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "startTime",
+          "debugLabel": "startTime",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.startTime$}}"
+        },
+        {
+          "key": "endDate",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "endDate",
+          "debugLabel": "endDate",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.endDate$}}"
+        },
+        {
+          "key": "endTime",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "endTime",
+          "debugLabel": "endTime",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.endTime$}}"
+        },
+        {
+          "key": "reasons",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "reasons",
+          "debugLabel": "reasons",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.reasons$}}"
+        },
+        {
+          "key": "leaveDays",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "leaveDays",
+          "debugLabel": "leaveDays",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.leaveDays$}}"
+        },
+        {
+          "key": "schedule_list",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "schedule_list",
+          "debugLabel": "schedule_list",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.schedule_list$}}"
+        },
+        {
+          "key": "empNo",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "empNo",
+          "debugLabel": "empNo",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.empNo$}}"
+        },
+        {
+          "key": "pre_schedule_list",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "pre_schedule_list",
+          "debugLabel": "pre_schedule_list",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.pre_schedule_list$}}"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "common:core.module.output.description.New context",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": false,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "common:core.module.output.description.Ai response content",
+          "valueType": "string",
+          "type": "static"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text"
+        }
+      ],
+      "pluginId": "69ddd2cfd692f46cd6d655e0",
+      "catchError": false
+    },
+    {
+      "nodeId": "ynejtwjWx0yTzPp7",
+      "name": "测试-AI考勤-快捷（今天之后A）",
+      "intro": "",
+      "avatar": "core/app/type/workflowFill",
+      "flowNodeType": "appModule",
+      "showStatus": true,
+      "position": {
+        "x": -7290,
+        "y": -2685
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_forbid_stream",
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "label": "workflow:template.forbid_stream",
+          "description": "workflow:template.forbid_stream_desc",
+          "value": false
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "workflow:user_question_tool_desc",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ]
+        },
+        {
+          "key": "typeName",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "typeName",
+          "debugLabel": "typeName",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.typeName$}}"
+        },
+        {
+          "key": "startDate",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "startDate",
+          "debugLabel": "startDate",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.startDate$}}"
+        },
+        {
+          "key": "startTime",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "startTime",
+          "debugLabel": "startTime",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.startTime$}}"
+        },
+        {
+          "key": "endDate",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "endDate",
+          "debugLabel": "endDate",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.endDate$}}"
+        },
+        {
+          "key": "endTime",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "endTime",
+          "debugLabel": "endTime",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.endDate$}}"
+        },
+        {
+          "key": "reasons",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "reasons",
+          "debugLabel": "reasons",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.reasons$}}"
+        },
+        {
+          "key": "leaveDays",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "leaveDays",
+          "debugLabel": "leaveDays",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.leaveDays$}}"
+        },
+        {
+          "key": "schedule_list",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "schedule_list",
+          "debugLabel": "schedule_list",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.schedule_list$}}"
+        },
+        {
+          "key": "empNo",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "empNo",
+          "debugLabel": "empNo",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.empNo$}}"
+        },
+        {
+          "key": "pre_schedule_list",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "pre_schedule_list",
+          "debugLabel": "pre_schedule_list",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.pre_schedule_list$}}"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "common:core.module.output.description.New context",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": false,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "common:core.module.output.description.Ai response content",
+          "valueType": "string",
+          "type": "static"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text"
+        }
+      ],
+      "pluginId": "69ddd34b1559ca9cdf02ab25",
+      "catchError": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "448745",
+      "target": "s9WJYYrUK8Sc",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "s9WJYYrUK8Sc-target-left"
+    },
+    {
+      "source": "s9WJYYrUK8Sc",
+      "target": "rxItT4AdHp2Ze5xj",
+      "sourceHandle": "s9WJYYrUK8Sc-source-ELSE",
+      "targetHandle": "rxItT4AdHp2Ze5xj-target-left"
+    },
+    {
+      "source": "s9WJYYrUK8Sc",
+      "target": "ynejtwjWx0yTzPp7",
+      "sourceHandle": "s9WJYYrUK8Sc-source-IF",
+      "targetHandle": "ynejtwjWx0yTzPp7-target-left"
+    },
+    {
+      "source": "s9WJYYrUK8Sc",
+      "target": "ynejtwjWx0yTzPp7",
+      "sourceHandle": "s9WJYYrUK8Sc-source-ELSE IF 1",
+      "targetHandle": "ynejtwjWx0yTzPp7-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [
+      {
+        "id": "5eo2dg",
+        "key": "typeName",
+        "label": "typeName",
+        "type": "custom",
+        "description": "假期类别名称",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "ezkuun",
+        "key": "startDate",
+        "label": "startDate",
+        "type": "custom",
+        "description": "请假开始日期",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "6178mj",
+        "key": "startTime",
+        "label": "startTime",
+        "type": "custom",
+        "description": "请假开始时间",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "k9toxy",
+        "key": "endDate",
+        "label": "endDate",
+        "type": "custom",
+        "description": "请假结束日期",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "k3hzx2",
+        "key": "endTime",
+        "label": "endTime",
+        "type": "custom",
+        "description": "请假结束时间",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "81s3ql",
+        "key": "reasons",
+        "label": "reasons",
+        "type": "custom",
+        "description": "请假事由",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "w6p2go",
+        "key": "leaveDays",
+        "label": "leaveDays",
+        "type": "custom",
+        "description": "请假天数，如1.5天",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "k8hpw8",
+        "key": "schedule_list",
+        "label": "schedule_list",
+        "type": "custom",
+        "description": "",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "sgadcd",
+        "key": "empNo",
+        "label": "empNo",
+        "type": "custom",
+        "description": "",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "jy8v1u",
+        "key": "pre_schedule_list",
+        "label": "pre_schedule_list",
+        "type": "custom",
+        "description": "",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      }
+    ],
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    },
+    "_id": "67bc18d298348aa71bcfea46"
+  }
+}

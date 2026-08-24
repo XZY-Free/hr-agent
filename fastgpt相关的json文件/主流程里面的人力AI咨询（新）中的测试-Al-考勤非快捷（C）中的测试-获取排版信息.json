@@ -1,0 +1,3396 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": -2295,
+        "y": -885
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "core.app.Welcome Text",
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "core.app.Chat Variable",
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "core.app.Question Guide",
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": null
+        }
+      ],
+      "outputs": [],
+      "isFolded": false
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": -1680,
+        "y": -660
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "required": true,
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "label": "common:core.module.input.label.user question",
+          "type": "static",
+          "valueType": "string",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "jj1B2rmYOuLs",
+      "name": "HTTP 请求-获取盖亚JWT",
+      "intro": "可以发出一个 HTTP 请求，实现更为复杂的操作（联网搜索、数据库查询等）",
+      "avatar": "core/workflow/template/httpRequest",
+      "flowNodeType": "httpRequest468",
+      "showStatus": true,
+      "position": {
+        "x": 357.3645721229745,
+        "y": -502.6334980539999
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "common:core.module.input.description.HTTP Dynamic Input",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "deprecated": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpMethod",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "string",
+          "label": "",
+          "value": "POST",
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpTimeout",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "number",
+          "label": "",
+          "value": 30,
+          "min": 5,
+          "max": 600,
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpReqUrl",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Url",
+          "placeholder": "https://api.ai.com/getInventory",
+          "required": false,
+          "value": "https://openapi-s.gaiaworkforce.com/identity/api/v1/oauth",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_header_secret",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "object",
+          "label": "",
+          "required": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpHeader",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Header",
+          "placeholder": "common:core.module.input.description.Http Request Header",
+          "required": false,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpParams",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpJsonBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": "",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpFormBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [
+            {
+              "key": "grant_type",
+              "type": "string",
+              "value": "{{$VARIABLE_NODE_ID.grant_type$}}"
+            },
+            {
+              "key": "corp_id",
+              "type": "string",
+              "value": "{{$VARIABLE_NODE_ID.corp_id$}}"
+            },
+            {
+              "key": "client_secret",
+              "type": "string",
+              "value": "{{$VARIABLE_NODE_ID.client_secret$}}"
+            }
+          ],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpContentType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "value": "x-www-form-urlencoded",
+          "label": "",
+          "required": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "httpRawResponse",
+          "key": "httpRawResponse",
+          "required": true,
+          "label": "workflow:raw_response",
+          "description": "HTTP请求的原始响应。只能接受字符串或JSON类型响应数据。",
+          "valueType": "any",
+          "type": "static"
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "HTTP请求错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "输出字段提取",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "可以通过 JSONPath 语法来提取响应值中的指定字段",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "xi5uS2jhZ1IV",
+      "name": "代码运行",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 1110,
+        "y": -465
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "value": "/*\n  {\n    \"result\": true,\n    \"message\": \"Api access succeeded\",\n    \"data\": \"eyJ0eXA....w5TW2zqvl3pg\",\n    \"code\": 200\n  }\n*/\nfunction main({response}){\n    var flag = false;\n    var jwt = \"\";\n    var errorMsg = \"\";\n    \n    try {\n        var dataJson = JSON.parse(response);\n        if(dataJson.result && dataJson.code == 200) {\n            jwt = dataJson.data;\n            flag = true;\n        } else {\n            errorMsg = \"获取盖亚JWT权限失败，message=\" + dataJson.message;\n            flag = false;\n        }\n    } catch(e) {\n        flag = false;\n        errorMsg = \"获取盖亚JWT权限失败，JSON格式错误，json=\" + response;\n    }\n\n    return {\n        flag: flag,\n        jwt: jwt,\n        errorMsg: errorMsg\n    }\n\n}",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "response",
+          "label": "response",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "jj1B2rmYOuLs",
+            "httpRawResponse"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        },
+        {
+          "id": "l8dolgFfHbR4",
+          "valueType": "boolean",
+          "type": "dynamic",
+          "key": "flag",
+          "label": "flag"
+        },
+        {
+          "id": "jrZEvzix9ZIf",
+          "valueType": "string",
+          "type": "dynamic",
+          "key": "jwt",
+          "label": "jwt"
+        },
+        {
+          "id": "vqvkMqTHqxlC",
+          "valueType": "string",
+          "type": "dynamic",
+          "key": "errorMsg",
+          "label": "errorMsg"
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "v13xOaxSepuD",
+      "name": "判断器",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": 1935,
+        "y": -217.13349805399992
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "xi5uS2jhZ1IV",
+                    "l8dolgFfHbR4"
+                  ],
+                  "condition": "equalTo",
+                  "value": "true"
+                }
+              ]
+            }
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "dylA9Asv4HcV",
+      "name": "指定回复 - 获取权限失败",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 5040,
+        "y": 615
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": [
+            "aeUxxnVwVjEv",
+            "system_rawResponse"
+          ],
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "selectedTypeIndex": 1,
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "nDDvaIylqH5E",
+      "name": "HTTP 请求#2 获取排版时间",
+      "intro": "可以发出一个 HTTP 请求，实现更为复杂的操作（联网搜索、数据库查询等）",
+      "avatar": "core/workflow/template/httpRequest",
+      "flowNodeType": "httpRequest468",
+      "showStatus": true,
+      "position": {
+        "x": 2745,
+        "y": -1035
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "common:core.module.input.description.HTTP Dynamic Input",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "deprecated": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpMethod",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "string",
+          "label": "",
+          "value": "POST",
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpTimeout",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "number",
+          "label": "",
+          "value": 30,
+          "min": 5,
+          "max": 600,
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpReqUrl",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Url",
+          "placeholder": "https://api.ai.com/getInventory",
+          "required": false,
+          "value": "https://openapi-s.gaiaworkforce.com/wfm4customization/api/v1/scheduling/attendance/getScheduleData",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_header_secret",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "object",
+          "label": "",
+          "required": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpHeader",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "value": [
+            {
+              "key": "tenant",
+              "value": "snowbeertest",
+              "type": "string"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{$xi5uS2jhZ1IV.jrZEvzix9ZIf$}}",
+              "type": "string"
+            },
+            {
+              "key": "User-Agent",
+              "value": "Apifox/1.0.0 (https://apifox.com)",
+              "type": "string"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "string"
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "type": "string"
+            },
+            {
+              "key": "Host",
+              "value": "openapi-s.gaiaworkforce.com",
+              "type": "string"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "type": "string"
+            }
+          ],
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Header",
+          "placeholder": "common:core.module.input.description.Http Request Header",
+          "required": false,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpParams",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpJsonBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": "{\n  \"size\": \"30\",\n  \"startDate\": \"{{$VARIABLE_NODE_ID.startDate$}}\",\n  \"endDate\": \"{{$VARIABLE_NODE_ID.endDate$}}\",\n  \"unitCode\": \"\",\n  \"employeeId\": \"{{$VARIABLE_NODE_ID.employeeId$}}\",\n  \"page\": \"1\",\n  \"isIncludeSubUnit\": false\n}",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpFormBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpContentType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "value": "json",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "httpRawResponse",
+          "key": "httpRawResponse",
+          "required": true,
+          "label": "workflow:raw_response",
+          "description": "HTTP请求的原始响应。只能接受字符串或JSON类型响应数据。",
+          "valueType": "any",
+          "type": "static"
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "HTTP请求错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "输出字段提取",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "可以通过 JSONPath 语法来提取响应值中的指定字段",
+          "valueDesc": ""
+        },
+        {
+          "id": "kVmqWA",
+          "type": "dynamic",
+          "key": "reason",
+          "label": "reason",
+          "valueType": "any",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "j1tTgGRaVr9g",
+      "name": "代码运行#2 提取出第一天和最后一天",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 3720,
+        "y": -1050
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "value": "function main({ data1 }) {\n  if (data1 === undefined) {\n    throw new Error('data1 is required');\n  }\n\n  // 此时 data1 应该已经是对象，不是字符串\n  const data = data1;\n\n  // 安全访问 data.details.employeeData\n  if (!data || typeof data !== 'object' || !data.details || !Array.isArray(data.details.employeeData) || data.details.employeeData.length === 0) {\n    throw new Error('No employee data');\n  }\n\n  const employeeDetailData = data.details.employeeData[0].employeeDetailData;\n  if (!Array.isArray(employeeDetailData)) {\n    throw new Error('employeeDetailData is not an array');\n  }\n\n  // 过滤有效班次（shiftName 不为 null/undefined）\n  const validShifts = employeeDetailData.filter(day => day.shiftName != null);\n\n  if (validShifts.length === 0) {\n    throw new Error('No valid shifts found');\n  }\n\n  const firstDay = validShifts[0];\n  const lastDay = validShifts[validShifts.length - 1];\n\n  // 安全获取用餐开始时间\n  function getMealBegin(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealBeginTime != null) {\n        return day.restTime[0].mealBeginTime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  function getMealEnd(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealEndtime != null) {\n        return day.restTime[0].mealEndtime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  // 辅助函数：安全转字符串\n  function getString(val) {\n    return val != null ? String(val) : '';\n  }\n\n  return {\n    firstDayStartTime: getString(firstDay.startTime),\n    firstDayEndTime: getString(firstDay.endTime),\n    firstDayMealBeginTime: getString(getMealBegin(firstDay)),\n    firstDayMealEndTime: getString(getMealEnd(firstDay)),\n\n    lastDayStartTime: getString(lastDay.startTime),\n    lastDayEndTime: getString(lastDay.endTime),\n    lastDayMealBeginTime: getString(getMealBegin(lastDay)),\n    lastDayMealEndTime: getString(getMealEnd(lastDay))\n  };\n}",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "any",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "nDDvaIylqH5E",
+            "httpRawResponse"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": true
+    },
+    {
+      "nodeId": "c1FozIAhHX17",
+      "name": "指定回复#2",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 5730,
+        "y": 165
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": [
+            "j1tTgGRaVr9g",
+            "system_rawResponse"
+          ],
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "selectedTypeIndex": 1,
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "aeUxxnVwVjEv",
+      "name": "代码运行#3 构建错误信息",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 3435,
+        "y": 360
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "value": "function main({errorMsg}){\n    return JSON.stringify({\n        businessType: \"leave_balance\",\n        flag: false,\n        errorMsg: errorMsg\n    });\n}",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "errorMsg",
+          "label": "errorMsg",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "xi5uS2jhZ1IV",
+            "vqvkMqTHqxlC"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "cW5PQC7aYSyHPbBC",
+      "name": "日期格式校验",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": -1125,
+        "y": -795
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "function formatDate(dateString) {\n    // 使用正则表达式匹配不同的日期格式\n    const regex = /^(\\d{4})[-/](\\d{1,2})[-/](\\d{1,2})$/;\n    const match = dateString.match(regex);\n\n    if (!match) {\n        throw new Error(`Invalid date format: ${dateString}`);\n    }\n\n    const year = parseInt(match[1], 10);\n    const month = parseInt(match[2], 10);\n    const day = parseInt(match[3], 10);\n\n    // 创建一个Date对象，并检查其合法性\n    const date = new Date(year, month - 1, day);\n    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {\n        throw new Error(`Invalid date: ${dateString}`);\n    }\n\n    // 返回格式化的日期字符串\n    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;\n}\n\nfunction main({data1, data2}) {\n    try {\n        const formattedData1 = formatDate(data1);\n        const formattedData2 = formatDate(data2);\n\n        return {\n            result: formattedData1,\n            data2: formattedData2\n        };\n    } catch (error) {\n        throw new Error(`Error formatting dates: ${error.message}`);\n    }\n}\n\n// 示例用法\ntry {\n    console.log(main({data1: \"2025-5-1\", data2: \"2025-12-31\"})); // 输出: { result: '2025-05-01', data2: '2025-12-31' }\n    console.log(main({data1: \"2025/5/1\", data2: \"2025/12/31\"})); // 输出: { result: '2025-05-01', data2: '2025-12-31' }\n    console.log(main({data1: \"2025-02-30\", data2: \"2025-12-31\"})); // 抛出错误: Invalid date: 2025-02-30\n} catch (error) {\n    console.error(error.message);\n}\n",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "VARIABLE_NODE_ID",
+            "startDate"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data2",
+          "label": "data2",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "VARIABLE_NODE_ID",
+            "endDate"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        },
+        {
+          "id": "qLUQfhG0ILRX",
+          "type": "dynamic",
+          "key": "result",
+          "valueType": "string",
+          "label": "result",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "gR0mkQpJ4Og8",
+          "type": "dynamic",
+          "key": "data2",
+          "valueType": "string",
+          "label": "data2",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "sZmES3zmIEY9VoM6",
+      "name": "变量更新",
+      "intro": "可以更新指定节点的输出值或更新全局变量",
+      "avatar": "core/workflow/template/variableUpdate",
+      "flowNodeType": "variableUpdate",
+      "showStatus": false,
+      "position": {
+        "x": -240,
+        "y": -615
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "updateList",
+          "valueType": "any",
+          "label": "",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": [
+            {
+              "variable": [
+                "VARIABLE_NODE_ID",
+                "startDate"
+              ],
+              "value": [
+                "",
+                "{{$cW5PQC7aYSyHPbBC.qLUQfhG0ILRX$}}"
+              ],
+              "valueType": "string",
+              "renderType": "input"
+            }
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "nYqn51boRvxNb5EM",
+      "name": "变量更新#2",
+      "intro": "可以更新指定节点的输出值或更新全局变量",
+      "avatar": "core/workflow/template/variableUpdate",
+      "flowNodeType": "variableUpdate",
+      "showStatus": false,
+      "position": {
+        "x": -255,
+        "y": -75
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "updateList",
+          "valueType": "any",
+          "label": "",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "value": [
+            {
+              "variable": [
+                "VARIABLE_NODE_ID",
+                "endDate"
+              ],
+              "value": [
+                "",
+                "{{$cW5PQC7aYSyHPbBC.gR0mkQpJ4Og8$}}"
+              ],
+              "valueType": "string",
+              "renderType": "input"
+            }
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "bQsFEE9Sb8uc3uJK",
+      "name": "判断是否有休息时间",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": 4684,
+        "y": -900
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "nDDvaIylqH5E",
+                    "kVmqWA"
+                  ],
+                  "condition": "equalTo",
+                  "value": "GWDA_00001",
+                  "valueType": "input"
+                }
+              ]
+            },
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "j1tTgGRaVr9g",
+                    "error"
+                  ],
+                  "condition": "isNotEmpty"
+                }
+              ]
+            }
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "aBpJHrMJZjRwIxMj",
+      "name": "指定回复#3",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 5820,
+        "y": -255
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "您的请假时间还没有排班，请您在排班后再试\n（哆啦小贴士✨ 排班可以问问您的直接上级领导） ",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "selectedTypeIndex": 0,
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "tK1WdNmjablgw1Ni",
+      "name": "指定回复#4",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 6765,
+        "y": -600
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{{$yVrvE5iWz4YmAQjd.rGeaSR$}}",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "yVrvE5iWz4YmAQjd",
+      "name": "拆分日期#5",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 5895,
+        "y": -1560
+      },
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "js",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "function main({ data1, data2 }) {\n  const startDate = new Date(data1);\n  const endDate = new Date(data2);\n\n  // 验证日期是否有效\n  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {\n    throw new Error(\"Invalid date format provided.\");\n  }\n\n  // 确保 startDate <= endDate\n  if (startDate > endDate) {\n    throw new Error(\"Start date must be less than or equal to end date.\");\n  }\n\n  // 检查是否超过一年（365天）\n  const diffInDays = (endDate - startDate) / (1000 * 60 * 60 * 24);\n  if (diffInDays > 365) {\n    return {\n      result: \"日期间隔过长\"\n    };\n  }\n\n  // 辅助函数：格式化日期为 YYYY-MM-DD\n  function formatDate(date) {\n    const y = date.getFullYear();\n    const m = String(date.getMonth() + 1).padStart(2, '0');\n    const d = String(date.getDate()).padStart(2, '0');\n    return `${y}-${m}-${d}`;\n  }\n\n  const d1 = startDate;\n  const d2 = new Date(startDate);\n  d2.setDate(d1.getDate() + 5); // data1 + 5天\n\n  const d3 = new Date(endDate);\n  d3.setDate(endDate.getDate() - 5); // data2 - 5天\n\n  const d4 = endDate;\n\n  // 注意：即使加减后跨越月份或年份，Date 对象会自动处理（如 2025-10-30 + 5天 → 2025-11-04）\n\n  return {\n    var1: formatDate(d1),\n    var2: formatDate(d2),\n    var3: formatDate(d3),\n    var4: formatDate(d4)\n  };\n}",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "VARIABLE_NODE_ID",
+            "startDate"
+          ]
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data2",
+          "label": "data2",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "VARIABLE_NODE_ID",
+            "endDate"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "valueType": "string",
+          "type": "error",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        },
+        {
+          "id": "qLUQfhG0ILRX",
+          "type": "dynamic",
+          "key": "var1",
+          "valueType": "string",
+          "label": "var1",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "hyyixQ",
+          "type": "dynamic",
+          "key": "var2",
+          "label": "var2",
+          "valueType": "string",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "b2LIik",
+          "type": "dynamic",
+          "key": "var3",
+          "label": "var3",
+          "valueType": "string",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "o8bQUy",
+          "type": "dynamic",
+          "key": "var4",
+          "label": "var4",
+          "valueType": "string",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "rGeaSR",
+          "type": "dynamic",
+          "key": "result",
+          "label": "result",
+          "valueType": "string",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "nCP6TmBkM3muEpc5",
+      "name": "HTTP 请求#2 获取排版时间#3",
+      "intro": "可以发出一个 HTTP 请求，实现更为复杂的操作（联网搜索、数据库查询等）",
+      "avatar": "core/workflow/template/httpRequest",
+      "flowNodeType": "httpRequest468",
+      "showStatus": true,
+      "position": {
+        "x": 8460,
+        "y": -1665
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "common:core.module.input.description.HTTP Dynamic Input",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "deprecated": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpMethod",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "string",
+          "label": "",
+          "value": "POST",
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpTimeout",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "number",
+          "label": "",
+          "value": 30,
+          "min": 5,
+          "max": 600,
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpReqUrl",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Url",
+          "placeholder": "https://api.ai.com/getInventory",
+          "required": false,
+          "value": "https://openapi-s.gaiaworkforce.com/wfm4customization/api/v1/scheduling/attendance/getScheduleData",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_header_secret",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "object",
+          "label": "",
+          "required": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpHeader",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "value": [
+            {
+              "key": "tenant",
+              "value": "snowbeertest",
+              "type": "string"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{$xi5uS2jhZ1IV.jrZEvzix9ZIf$}}",
+              "type": "string"
+            },
+            {
+              "key": "User-Agent",
+              "value": "Apifox/1.0.0 (https://apifox.com)",
+              "type": "string"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "string"
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "type": "string"
+            },
+            {
+              "key": "Host",
+              "value": "openapi-s.gaiaworkforce.com",
+              "type": "string"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "type": "string"
+            }
+          ],
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Header",
+          "placeholder": "common:core.module.input.description.Http Request Header",
+          "required": false,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpParams",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpJsonBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": "{\n  \"size\": \"30\",\n  \"startDate\": \"{{$yVrvE5iWz4YmAQjd.qLUQfhG0ILRX$}}\",\n  \"endDate\": \"{{$yVrvE5iWz4YmAQjd.hyyixQ$}}\",\n  \"unitCode\": \"\",\n  \"employeeId\": \"{{$VARIABLE_NODE_ID.employeeId$}}\",\n  \"page\": \"1\",\n  \"isIncludeSubUnit\": false\n}",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpFormBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpContentType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "value": "json",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "httpRawResponse",
+          "key": "httpRawResponse",
+          "required": true,
+          "label": "workflow:raw_response",
+          "description": "HTTP请求的原始响应。只能接受字符串或JSON类型响应数据。",
+          "valueType": "any",
+          "type": "static"
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "HTTP请求错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "输出字段提取",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "可以通过 JSONPath 语法来提取响应值中的指定字段",
+          "valueDesc": ""
+        },
+        {
+          "id": "kVmqWA",
+          "type": "dynamic",
+          "key": "reason",
+          "label": "reason",
+          "valueType": "any",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "isFolded": false,
+      "catchError": false
+    },
+    {
+      "nodeId": "kDQ3kFpD46HWtPD4",
+      "name": "HTTP 请求#2 获取排版时间#6",
+      "intro": "可以发出一个 HTTP 请求，实现更为复杂的操作（联网搜索、数据库查询等）",
+      "avatar": "core/workflow/template/httpRequest",
+      "flowNodeType": "httpRequest468",
+      "showStatus": true,
+      "position": {
+        "x": 8475,
+        "y": -570
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "common:core.module.input.description.HTTP Dynamic Input",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "deprecated": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpMethod",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "string",
+          "label": "",
+          "value": "POST",
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpTimeout",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "number",
+          "label": "",
+          "value": 30,
+          "min": 5,
+          "max": 600,
+          "required": true,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpReqUrl",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Url",
+          "placeholder": "https://api.ai.com/getInventory",
+          "required": false,
+          "value": "https://openapi-s.gaiaworkforce.com/wfm4customization/api/v1/scheduling/attendance/getScheduleData",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_header_secret",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "object",
+          "label": "",
+          "required": false,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpHeader",
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "value": [
+            {
+              "key": "tenant",
+              "value": "snowbeertest",
+              "type": "string"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer {{$xi5uS2jhZ1IV.jrZEvzix9ZIf$}}",
+              "type": "string"
+            },
+            {
+              "key": "User-Agent",
+              "value": "Apifox/1.0.0 (https://apifox.com)",
+              "type": "string"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "string"
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "type": "string"
+            },
+            {
+              "key": "Host",
+              "value": "openapi-s.gaiaworkforce.com",
+              "type": "string"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "type": "string"
+            }
+          ],
+          "label": "",
+          "description": "common:core.module.input.description.Http Request Header",
+          "placeholder": "common:core.module.input.description.Http Request Header",
+          "required": false,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpParams",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpJsonBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": "{\n  \"size\": \"30\",\n  \"startDate\": \"{{$yVrvE5iWz4YmAQjd.b2LIik$}}\",\n  \"endDate\": \"{{$yVrvE5iWz4YmAQjd.o8bQUy$}}\",\n  \"unitCode\": \"\",\n  \"employeeId\": \"{{$VARIABLE_NODE_ID.employeeId$}}\",\n  \"page\": \"1\",\n  \"isIncludeSubUnit\": false\n}",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpFormBody",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "value": [],
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "system_httpContentType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "value": "json",
+          "label": "",
+          "required": false,
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "httpRawResponse",
+          "key": "httpRawResponse",
+          "required": true,
+          "label": "workflow:raw_response",
+          "description": "HTTP请求的原始响应。只能接受字符串或JSON类型响应数据。",
+          "valueType": "any",
+          "type": "static"
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "HTTP请求错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "输出字段提取",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "可以通过 JSONPath 语法来提取响应值中的指定字段",
+          "valueDesc": ""
+        },
+        {
+          "id": "kVmqWA",
+          "type": "dynamic",
+          "key": "reason",
+          "label": "reason",
+          "valueType": "any",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "isFolded": false,
+      "catchError": false
+    },
+    {
+      "nodeId": "lkyfAYKqutQFFNFx",
+      "name": "判断器#3",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": 6750,
+        "y": -1140
+      },
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "yVrvE5iWz4YmAQjd",
+                    "qLUQfhG0ILRX"
+                  ],
+                  "condition": "isNotEmpty",
+                  "valueType": "input"
+                }
+              ]
+            }
+          ],
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "qquLZTnYqPXEOsxN",
+      "name": " 提取出第一天和最后一天#6",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 9405,
+        "y": -1665
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "value": "function main({ data1 }) {\n  if (data1 === undefined) {\n    throw new Error('data1 is required');\n  }\n\n  // 此时 data1 应该已经是对象，不是字符串\n  const data = data1;\n\n  // 安全访问 data.details.employeeData\n  if (!data || typeof data !== 'object' || !data.details || !Array.isArray(data.details.employeeData) || data.details.employeeData.length === 0) {\n    throw new Error('No employee data');\n  }\n\n  const employeeDetailData = data.details.employeeData[0].employeeDetailData;\n  if (!Array.isArray(employeeDetailData)) {\n    throw new Error('employeeDetailData is not an array');\n  }\n\n  // 过滤有效班次（shiftName 不为 null/undefined）\n  const validShifts = employeeDetailData.filter(day => day.shiftName != null);\n\n  if (validShifts.length === 0) {\n    throw new Error('No valid shifts found');\n  }\n\n  const firstDay = validShifts[0];\n  const lastDay = validShifts[validShifts.length - 1];\n\n  // 安全获取用餐开始时间\n  function getMealBegin(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealBeginTime != null) {\n        return day.restTime[0].mealBeginTime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  function getMealEnd(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealEndtime != null) {\n        return day.restTime[0].mealEndtime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  // 辅助函数：安全转字符串\n  function getString(val) {\n    return val != null ? String(val) : '';\n  }\n\n  return {\n    firstDayStartTime: getString(firstDay.startTime),\n    firstDayEndTime: getString(firstDay.endTime),\n    firstDayMealBeginTime: getString(getMealBegin(firstDay)),\n    firstDayMealEndTime: getString(getMealEnd(firstDay)),\n\n    lastDayStartTime: getString(lastDay.startTime),\n    lastDayEndTime: getString(lastDay.endTime),\n    lastDayMealBeginTime: getString(getMealBegin(lastDay)),\n    lastDayMealEndTime: getString(getMealEnd(lastDay))\n  };\n}",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "any",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "nCP6TmBkM3muEpc5",
+            "httpRawResponse"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": true
+    },
+    {
+      "nodeId": "dHYTu4YGGuaFZXJN",
+      "name": "提取出第一天和最后一天#7",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 9390,
+        "y": -675
+      },
+      "version": "482",
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "value": "js",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "value": "function main({ data1 }) {\n  if (data1 === undefined) {\n    throw new Error('data1 is required');\n  }\n\n  // 此时 data1 应该已经是对象，不是字符串\n  const data = data1;\n\n  // 安全访问 data.details.employeeData\n  if (!data || typeof data !== 'object' || !data.details || !Array.isArray(data.details.employeeData) || data.details.employeeData.length === 0) {\n    throw new Error('No employee data');\n  }\n\n  const employeeDetailData = data.details.employeeData[0].employeeDetailData;\n  if (!Array.isArray(employeeDetailData)) {\n    throw new Error('employeeDetailData is not an array');\n  }\n\n  // 过滤有效班次（shiftName 不为 null/undefined）\n  const validShifts = employeeDetailData.filter(day => day.shiftName != null);\n\n  if (validShifts.length === 0) {\n    throw new Error('No valid shifts found');\n  }\n\n  const firstDay = validShifts[0];\n  const lastDay = validShifts[validShifts.length - 1];\n\n  // 安全获取用餐开始时间\n  function getMealBegin(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealBeginTime != null) {\n        return day.restTime[0].mealBeginTime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  function getMealEnd(day) {\n    if (day.restTime && typeof day.restTime === 'object' && !Array.isArray(day.restTime)) {\n      return day.middleTime;\n    }\n    if (Array.isArray(day.restTime) && day.restTime.length > 0 && day.restTime[0] != null) {\n      if (day.restTime[0].mealEndtime != null) {\n        return day.restTime[0].mealEndtime;\n      }\n    }\n    return day.middleTime;\n  }\n\n  // 辅助函数：安全转字符串\n  function getString(val) {\n    return val != null ? String(val) : '';\n  }\n\n  return {\n    firstDayStartTime: getString(firstDay.startTime),\n    firstDayEndTime: getString(firstDay.endTime),\n    firstDayMealBeginTime: getString(getMealBegin(firstDay)),\n    firstDayMealEndTime: getString(getMealEnd(firstDay)),\n\n    lastDayStartTime: getString(lastDay.startTime),\n    lastDayEndTime: getString(lastDay.endTime),\n    lastDayMealBeginTime: getString(getMealBegin(lastDay)),\n    lastDayMealEndTime: getString(getMealEnd(lastDay))\n  };\n}",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "valueType": "string"
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "any",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "kDQ3kFpD46HWtPD4",
+            "httpRawResponse"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "description": "代码运行错误信息，成功时返回空",
+          "valueType": "string",
+          "type": "error"
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": true
+    },
+    {
+      "nodeId": "k1ndGpyrqzf7usl8",
+      "name": "代码运行#8",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 10395,
+        "y": -1215
+      },
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "js",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "function main({data1, data2}) {\n    return {\n        result: {\n            firstDayStartTime: data1.firstDayStartTime,\n            firstDayEndTime: data1.firstDayEndTime,\n            firstDayMealBeginTime: data1.firstDayMealBeginTime,\n            firstDayMealEndTime: data1.firstDayMealEndTime,\n            lastDayStartTime: data2.lastDayStartTime,\n            lastDayEndTime: data2.lastDayEndTime,\n            lastDayMealBeginTime: data2.lastDayMealBeginTime,\n            lastDayMealEndTime: data2.lastDayMealEndTime\n        }\n    };\n}",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "object",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "qquLZTnYqPXEOsxN",
+            "system_rawResponse"
+          ]
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "object",
+          "canEdit": true,
+          "key": "data2",
+          "label": "data2",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "dHYTu4YGGuaFZXJN",
+            "system_rawResponse"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "valueType": "string",
+          "type": "error",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "mvzztIGcvaSP3wFc",
+      "name": "指定回复#5",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 11250,
+        "y": -930
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": [
+            "k1ndGpyrqzf7usl8",
+            "system_rawResponse"
+          ],
+          "selectedTypeIndex": 1,
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "jj1B2rmYOuLs",
+      "target": "xi5uS2jhZ1IV",
+      "sourceHandle": "jj1B2rmYOuLs-source-right",
+      "targetHandle": "xi5uS2jhZ1IV-target-left"
+    },
+    {
+      "source": "xi5uS2jhZ1IV",
+      "target": "v13xOaxSepuD",
+      "sourceHandle": "xi5uS2jhZ1IV-source-right",
+      "targetHandle": "v13xOaxSepuD-target-left"
+    },
+    {
+      "source": "v13xOaxSepuD",
+      "target": "nDDvaIylqH5E",
+      "sourceHandle": "v13xOaxSepuD-source-IF",
+      "targetHandle": "nDDvaIylqH5E-target-left"
+    },
+    {
+      "source": "v13xOaxSepuD",
+      "target": "aeUxxnVwVjEv",
+      "sourceHandle": "v13xOaxSepuD-source-ELSE",
+      "targetHandle": "aeUxxnVwVjEv-target-left"
+    },
+    {
+      "source": "aeUxxnVwVjEv",
+      "target": "dylA9Asv4HcV",
+      "sourceHandle": "aeUxxnVwVjEv-source-right",
+      "targetHandle": "dylA9Asv4HcV-target-left"
+    },
+    {
+      "source": "448745",
+      "target": "cW5PQC7aYSyHPbBC",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "cW5PQC7aYSyHPbBC-target-left"
+    },
+    {
+      "source": "cW5PQC7aYSyHPbBC",
+      "target": "sZmES3zmIEY9VoM6",
+      "sourceHandle": "cW5PQC7aYSyHPbBC-source-right",
+      "targetHandle": "sZmES3zmIEY9VoM6-target-left"
+    },
+    {
+      "source": "cW5PQC7aYSyHPbBC",
+      "target": "nYqn51boRvxNb5EM",
+      "sourceHandle": "cW5PQC7aYSyHPbBC-source-right",
+      "targetHandle": "nYqn51boRvxNb5EM-target-left"
+    },
+    {
+      "source": "nYqn51boRvxNb5EM",
+      "target": "jj1B2rmYOuLs",
+      "sourceHandle": "nYqn51boRvxNb5EM-source-right",
+      "targetHandle": "jj1B2rmYOuLs-target-left"
+    },
+    {
+      "source": "sZmES3zmIEY9VoM6",
+      "target": "jj1B2rmYOuLs",
+      "sourceHandle": "sZmES3zmIEY9VoM6-source-right",
+      "targetHandle": "jj1B2rmYOuLs-target-left"
+    },
+    {
+      "source": "nDDvaIylqH5E",
+      "target": "j1tTgGRaVr9g",
+      "sourceHandle": "nDDvaIylqH5E-source-right",
+      "targetHandle": "j1tTgGRaVr9g-target-left"
+    },
+    {
+      "source": "j1tTgGRaVr9g",
+      "target": "bQsFEE9Sb8uc3uJK",
+      "sourceHandle": "j1tTgGRaVr9g-source-right",
+      "targetHandle": "bQsFEE9Sb8uc3uJK-target-left"
+    },
+    {
+      "source": "bQsFEE9Sb8uc3uJK",
+      "target": "c1FozIAhHX17",
+      "sourceHandle": "bQsFEE9Sb8uc3uJK-source-ELSE",
+      "targetHandle": "c1FozIAhHX17-target-left"
+    },
+    {
+      "source": "j1tTgGRaVr9g",
+      "target": "bQsFEE9Sb8uc3uJK",
+      "sourceHandle": "j1tTgGRaVr9g-source_catch-right",
+      "targetHandle": "bQsFEE9Sb8uc3uJK-target-left"
+    },
+    {
+      "source": "bQsFEE9Sb8uc3uJK",
+      "target": "aBpJHrMJZjRwIxMj",
+      "sourceHandle": "bQsFEE9Sb8uc3uJK-source-ELSE IF 1",
+      "targetHandle": "aBpJHrMJZjRwIxMj-target-left"
+    },
+    {
+      "source": "bQsFEE9Sb8uc3uJK",
+      "target": "yVrvE5iWz4YmAQjd",
+      "sourceHandle": "bQsFEE9Sb8uc3uJK-source-IF",
+      "targetHandle": "yVrvE5iWz4YmAQjd-target-left"
+    },
+    {
+      "source": "yVrvE5iWz4YmAQjd",
+      "target": "lkyfAYKqutQFFNFx",
+      "sourceHandle": "yVrvE5iWz4YmAQjd-source-right",
+      "targetHandle": "lkyfAYKqutQFFNFx-target-left"
+    },
+    {
+      "source": "lkyfAYKqutQFFNFx",
+      "target": "tK1WdNmjablgw1Ni",
+      "sourceHandle": "lkyfAYKqutQFFNFx-source-ELSE",
+      "targetHandle": "tK1WdNmjablgw1Ni-target-left"
+    },
+    {
+      "source": "nCP6TmBkM3muEpc5",
+      "target": "qquLZTnYqPXEOsxN",
+      "sourceHandle": "nCP6TmBkM3muEpc5-source-right",
+      "targetHandle": "qquLZTnYqPXEOsxN-target-left"
+    },
+    {
+      "source": "kDQ3kFpD46HWtPD4",
+      "target": "dHYTu4YGGuaFZXJN",
+      "sourceHandle": "kDQ3kFpD46HWtPD4-source-right",
+      "targetHandle": "dHYTu4YGGuaFZXJN-target-left"
+    },
+    {
+      "source": "lkyfAYKqutQFFNFx",
+      "target": "nCP6TmBkM3muEpc5",
+      "sourceHandle": "lkyfAYKqutQFFNFx-source-IF",
+      "targetHandle": "nCP6TmBkM3muEpc5-target-left"
+    },
+    {
+      "source": "lkyfAYKqutQFFNFx",
+      "target": "kDQ3kFpD46HWtPD4",
+      "sourceHandle": "lkyfAYKqutQFFNFx-source-IF",
+      "targetHandle": "kDQ3kFpD46HWtPD4-target-left"
+    },
+    {
+      "source": "qquLZTnYqPXEOsxN",
+      "target": "k1ndGpyrqzf7usl8",
+      "sourceHandle": "qquLZTnYqPXEOsxN-source-right",
+      "targetHandle": "k1ndGpyrqzf7usl8-target-left"
+    },
+    {
+      "source": "dHYTu4YGGuaFZXJN",
+      "target": "k1ndGpyrqzf7usl8",
+      "sourceHandle": "dHYTu4YGGuaFZXJN-source-right",
+      "targetHandle": "k1ndGpyrqzf7usl8-target-left"
+    },
+    {
+      "source": "k1ndGpyrqzf7usl8",
+      "target": "mvzztIGcvaSP3wFc",
+      "sourceHandle": "k1ndGpyrqzf7usl8-source-right",
+      "targetHandle": "mvzztIGcvaSP3wFc-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [
+      {
+        "id": "bem9xd",
+        "key": "employeeId",
+        "label": "employeeId",
+        "type": "custom",
+        "description": "员工编号",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "21333961",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "icon": "core/workflow/inputType/customVariable"
+      },
+      {
+        "id": "z55bgf",
+        "key": "client_secret",
+        "label": "client_secret",
+        "type": "custom",
+        "description": "盖亚应用秘钥",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "e7390500754e444388da37e811a6b69b",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "icon": "core/workflow/inputType/customVariable"
+      },
+      {
+        "id": "ab8bnx",
+        "key": "corp_id",
+        "label": "corp_id",
+        "type": "custom",
+        "description": "企业Code",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "snowbeertest",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "icon": "core/workflow/inputType/customVariable"
+      },
+      {
+        "id": "7r69s0",
+        "key": "grant_type",
+        "label": "grant_type",
+        "type": "custom",
+        "description": "固定值，客户端模式",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "client_credentials",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "icon": "core/workflow/inputType/customVariable"
+      },
+      {
+        "id": "ffh01d",
+        "key": "startDate",
+        "label": "startDate",
+        "type": "custom",
+        "description": "假期开始日期",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "du1lzs",
+        "key": "endDate",
+        "label": "endDate",
+        "type": "custom",
+        "description": "假期结束时间",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "g9mxi5",
+        "key": "empNo",
+        "label": "empNo",
+        "type": "custom",
+        "description": "",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      }
+    ],
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    },
+    "_id": "67bc2fcb98348aa71bcff42d"
+  }
+}

@@ -1,0 +1,2234 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": -654.732401893541,
+        "y": -85.50718847604236
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "core.app.Welcome Text",
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "core.app.Chat Variable",
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "core.app.Question Guide",
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": null
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": -96.09273543343474,
+        "y": 22.99281152395764
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "required": true,
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "label": "common:core.module.input.label.user question",
+          "type": "static",
+          "valueType": "string",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "rUbxt6b3uXDmi3W8",
+      "name": "问题分类",
+      "intro": "根据用户的历史记录和当前问题判断该次提问的类型。可以添加多组问题类型，下面是一个模板例子:\n类型1: 打招呼\n类型2: 关于商品“使用”问题\n类型3: 关于商品“购买”问题\n类型4: 其他问题",
+      "avatar": "core/workflow/template/questionClassify",
+      "flowNodeType": "classifyQuestion",
+      "showStatus": true,
+      "position": {
+        "x": 1191.5896177708976,
+        "y": -730.3761565420459
+      },
+      "version": "4.9.2",
+      "inputs": [
+        {
+          "key": "model",
+          "renderTypeList": [
+            "selectLLMModel",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.aiModel",
+          "required": true,
+          "valueType": "string",
+          "llmModelType": "classify",
+          "value": "ali_deepseek-v3.2",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "systemPrompt",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "max": 3000,
+          "valueType": "string",
+          "label": "common:core.module.input.label.Background",
+          "description": "common:core.module.input.description.Background",
+          "placeholder": "common:core.module.input.placeholder.Classify background",
+          "value": "---\n\n### ✅ **意图识别提示词（Prompt for Intent Recognition）**\n\n#### 🎯 **角色设定**\n你是一个企业考勤系统的智能助手，能够理解员工或管理者提出的与考勤、排班、请假、打卡等相关的自然语言请求，并准确识别其背后的功能意图。\n\n#### 📌 **任务说明**\n请根据用户的输入内容，判断其最可能想使用的**考勤系统功能**。从以下预定义的功能中选择一个最匹配的意图编号和名称。如果无法匹配任何功能，请走其他意图。\n\n---\n\n## 🧩 功能意图列表\n\n| 功能名称         | 功能描述 | 触发关键词与语义模式示例 |\n|------------------|----------|---------------------------|\n**我的排班**          | 查询个人当天/未来排班时间、班次、工作时长等 | “我今天几点上班？”、“明天排班是几点？”、“下周我上什么班？”、“查看我的班表” |\n| **考勤统计**          | 查询月度总出勤时长、每日出勤明细、工时是否被少算 | “这个月我上了多少小时？”、“查一下3月出勤明细”、“为什么工时少了一天？”、“有没有漏算打卡？” |\n| **加班申请**          | 申请补录加班、提交加班单（需后续打卡或审批） | “我要申请昨天的加班”、“周末加班怎么报？”、“补个加班单”、“加班需要填什么？” |\n| **我的表单**          | 查看本人提交的请假、加班、异常等表单及其当前审核状态 | “我的年假单批了吗？”、“查一下我提交的申请”、“表单还在审核中吗？”、“撤销哪个单子？” |\n| **我的异常**          | 查询迟到、早退、缺卡、打卡异常等记录 | “我这个月迟到了几次？”、“有没有缺打卡？”、“为什么系统说我异常？”、“未打卡记录在哪看？” |\n| **销假申请**          | 撤销已提交或已批准的请假，释放假期余额 | “取消下周的年假”、“我要销假”、“不请那天了，把假还给我”、“撤回育儿假申请” |\n| **我的信息**          | 维护或查询个人家庭成员信息（如子女，用于育儿假资格） | “添加孩子信息”、“更新宝宝出生日期”、“家庭成员怎么填？”、“育儿假要绑定孩子吗？” |\n| **团队考勤**          | 管理者查看下属/团队成员的打卡、请假、异常汇总 | “我们组今天谁没打卡？”、“张三上周出勤如何？”、“看看部门迟到情况”、“导出团队考勤表” |\n| **假期余额查询**      | 查询本人或下属的各类假期剩余天数（年假、调休、育儿假等） | “我还剩几天年假？”、“李四调休还剩多少？”、“查一下王五的公出余额”、“假期够请3天吗？” |\n| **移动排班**          | 管理员/HBRP为员工调整、新增、批量排班 | “帮我给A组调下周班”、“批量修改排班时间”、“重新排一下周五班次”、“怎么给外包排班？” |\n| **打卡明细**          | 查看所辖员工的具体打卡时间、地点、方式、异常标记等 | “导出张三的打卡记录”、“谁在异地打卡了？”、“打卡IP异常吗？”、“查看某日打卡详情” |\n| **原始打卡记录**      | 员工本人查看自己的每一次打卡原始记录（含失败/成功） | “我早上打卡成功了吗？”、“查查手机打卡历史”、“刚才打卡没反应？”、“有没有漏打？” |\n| **咨询意图（政策/操作/系统问题）** | 非功能导向，用户提出政策咨询、操作求助、规则解释、系统报错等开放性问题，需人工/知识库介入 | “考勤规则是什么？”“打卡失败怎么办？”|“怎么申请调休？”|“排班可以自己改吗？”|“为什么被扣工资？”|“系统提示‘异常’是什么意思？”|“找不到请假入口”|“太复杂了，有没有教程？”|“这个功能怎么用？” |\n\n\n---\n\n### ⚙️ **匹配规则**\n优先匹配语义意图而非关键词完全一致。\n支持口语化表达、错别字轻微变形（如“考勤”写成“考勤情”可纠正）。\n注意用户身份差异（如“查下属”→可能是管理者 → 更倾向团队类功能）。\n若涉及“修改”、“撤销”、“取消”已有申请，优先匹配“销假申请”或“我的表单”。\n若涉及“家庭成员”、“孩子年龄”、“育儿假”，优先匹配“我的信息”。\n\n---\n\n",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "maxLength": 100000,
+          "isRichText": true
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "用户输入的问题（问题需要完善）",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": ""
+        },
+        {
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "label": "",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "key": "agents",
+          "value": [
+            {
+              "value": "我的排班",
+              "key": "wqre"
+            },
+            {
+              "value": "考勤统计",
+              "key": "sdfa"
+            },
+            {
+              "value": "加班申请",
+              "key": "agex"
+            },
+            {
+              "value": "我的表单",
+              "key": "hqHJffcnVmVBXJOl"
+            },
+            {
+              "value": "我的异常",
+              "key": "dkSeMQQdNt545zGU"
+            },
+            {
+              "value": "销假申请",
+              "key": "xRHCwv4D6MDxRyEN"
+            },
+            {
+              "value": "我的信息",
+              "key": "lUTsa141QsKKWUAK"
+            },
+            {
+              "value": "团队考勤",
+              "key": "vT5V3SKsF1AFVxxN"
+            },
+            {
+              "value": "假期余额查询",
+              "key": "vJ5b4Zgo7MWtdLVL"
+            },
+            {
+              "value": "移动排班",
+              "key": "vRbh6diPF9zJ6Jkc"
+            },
+            {
+              "value": "打卡明细",
+              "key": "lPqDvCdSswcfQsZs"
+            },
+            {
+              "value": "原始打卡记录",
+              "key": "kCwbs5SBUZrUZ8MF"
+            },
+            {
+              "value": "其他意图",
+              "key": "pLBJopUnL9XcLYPM"
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "cqResult",
+          "key": "cqResult",
+          "required": true,
+          "label": "workflow:classification_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "rUu17XsNflrhtxB7",
+      "name": "问题分类#2",
+      "intro": "根据用户的历史记录和当前问题判断该次提问的类型。可以添加多组问题类型，下面是一个模板例子:\n类型1: 打招呼\n类型2: 关于商品“使用”问题\n类型3: 关于商品“购买”问题\n类型4: 其他问题",
+      "avatar": "core/workflow/template/questionClassify",
+      "flowNodeType": "classifyQuestion",
+      "showStatus": true,
+      "position": {
+        "x": 1151.2369688522572,
+        "y": 1720.086845801337
+      },
+      "version": "4.9.2",
+      "inputs": [
+        {
+          "key": "model",
+          "renderTypeList": [
+            "selectLLMModel",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.aiModel",
+          "required": true,
+          "valueType": "string",
+          "llmModelType": "classify",
+          "value": "qwen-plus",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "systemPrompt",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "max": 3000,
+          "valueType": "string",
+          "label": "common:core.module.input.label.Background",
+          "description": "common:core.module.input.description.Background",
+          "placeholder": "common:core.module.input.placeholder.Classify background",
+          "value": "# 角色设定\n你是一个专业的HR智能客服意图识别助手。你的任务是对用户输入的问题进行意图分类，严格按照给定的业务规则，将问题归类为【假期余额查询】或【其他意图】这两个类别之一。\n\n# 分类规则\n要被判定为【假期余额查询】，必须 **同时满足** 以下“条件一”和“条件二”。如果不满足任何一项，则一律判定为【其他意图】。\n\n## 条件一：查询对象必须是“自己”（含省略主语的情况）\n* 用户必须是在查询本人的假期情况（明确带有“我”、“我的”等字眼）。\n* **当问题中没有任何明确的主语/对象时（例如直接问“年假有多少天”、“调休还有多久”），默认其指代自己，满足本条件。**\n* 只有当问题明确是在询问其他特定员工、下属的假期情况（例如作为主管或HR查询他人）时，才不满足本条件，属于【其他意图】。\n\n## 条件二：假种及查询内容必须包含“显式或隐式的查询意图”，且符合以下四种情况之一\n> ⚠️ **核心原则一（动作拦截）**：用户输入必须包含“查、剩、有多少、还有吗、额度”等显式或隐式的**查询/询问动作**。如果用户**仅仅输入了一个假期名词/词组（例如只输入了“年假”、“育儿假”），没有表现出任何查询余额的动机**，一律判定为【其他意图】。\n> \n> ⚠️ **核心原则二（特殊身份/场景拦截）**：对于年假，**仅限常规状态下的简单余额查询**。如果用户在询问年假时，带有以下两类特殊场景/前置条件的，无论是否在查天数，一律判定为【其他意图】：\n> 1. **新入职员工相关**：用户明确提及“刚入职”、“今年新加入”、“某月入职”、“入职不满一年”、“首次在本单位工作”等表述（例如：“我刚入职年假有多少天”）。\n> 2. **解除或终止劳动合同相关**：用户明确提到“离职”、“被辞退”、“合同到期不续签”、“已离开公司”、“正在办离职”、“劳动关系终止”等表述（例如：“我月底离职，没休的年假怎么算”）。\n>\n> 🔴 **核心原则三（意图冲突与异常拦截）**：**极其重要！**【假期余额查询】仅限纯粹的查询行为。如果用户的输入中包含**发起请假的动作**（如：“想请假”、“我要休”），或者属于对**系统数据/余额异常的追问报错**（如：“额度不对”、“点不了”），无论是否提及了天数或余额，都说明其真实意图是请假申请或系统求助，**必须一律判定为【其他意图】**。\n\n符合条件的四种普通查询情况：\n1. **常规年假查询**：非新入职、非离职状态下，单纯询问常规“年假”的余额。\n2. **查询调休假**：明确询问“调休假”（或调休）的余额。\n3. **查询无具体地区的育儿假**：明确询问“育儿假”的余额，并且问题中 **未提及任何具体地区/城市**（例如：“我的育儿假还有几天”）。如果提及了具体地区（例如：“北京育儿假还有几天”），则属于【其他意图】。\n4. **未明确假种的泛查询**：没有提及任何具体的假期种类，仅仅是泛泛地询问假期余额（例如：“我还有多少假期”、“查一下我的可用假期”）。\n\n## 排他性说明（极其重要）\n* 只有上述四种常规的、纯粹的余额查询，才属于【假期余额查询】。\n* 如果询问的是**其他任何类型的假期**（如：病假、事假、产假、婚假等），或者属于上述拦截的特殊年假场景，都必须分类为【其他意图】。\n\n# 示例参考\n\n* 用户输入：“我今年还有几天的年假可以休？”\n  分类结果：假期余额查询\n\n* 用户输入：“帮我查一下张三的调休还剩多少”\n  分类结果：其他意图 (原因：明确查询对象是他人，不是自己)\n\n* 用户输入：“年假有多少天？”\n  分类结果：假期余额查询 (原因：属于常规年假查询，未明确主语默认指代自己)\n\n* 用户输入：“我的育儿假额度还有多少”\n  分类结果：假期余额查询\n\n* 用户输入：“上海员工的育儿假我还能休几天”\n  分类结果：其他意图 (原因：育儿假包含了具体地区“上海”)\n\n* 用户输入：“我想查一下假期余额”\n  分类结果：假期余额查询 (原因：未明确具体假种，只问了余额)\n\n* 用户输入：“病假还能请几天”\n  分类结果：其他意图 (原因：病假不在允许的假种范围内)\n\n* 用户输入：“年假”\n  分类结果：其他意图 (原因：仅输入假期名词，没有表达查询余额的意图)\n\n* 用户输入：“我7月入职，现在能休年假吗？”\n  分类结果：其他意图 (原因：属于新入职员工的特殊年假查询场景)\n\n* 用户输入：“我刚入职年假有多少天”\n  分类结果：其他意图 (原因：属于新入职员工的特殊年假查询场景)\n\n* 用户输入：“我月底离职，没休的年假有补偿吗？”\n  分类结果：其他意图 (原因：属于解除或终止劳动合同员工的特殊年假场景)\n\n# 输出要求\n请仔细分析用户的输入，只输出最终的分类结果，不要输出任何额外的解释或标点符号。\n你的输出只能是以下两个词组之一：\n假期余额查询\n其他意图",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "maxLength": 100000,
+          "isRichText": true
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "用户输入的问题（问题需要完善）",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": ""
+        },
+        {
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "label": "",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "key": "agents",
+          "value": [
+            {
+              "value": "假期余额查询",
+              "key": "wqre"
+            },
+            {
+              "value": "其他意图",
+              "key": "sdfa"
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "cqResult",
+          "key": "cqResult",
+          "required": true,
+          "label": "workflow:classification_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "xh2XCD3ZgELGZ3l9",
+      "name": "我的异常#13",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3999.483601812881,
+        "y": 37.64068828590197
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"exception\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "dy1nArkgUPhvAh7i",
+      "name": "销假申请#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3986.351961847756,
+        "y": 363.17194352391334
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"request-sick-leave\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "qrINWieMEyv76rat",
+      "name": "我的信息#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3986.351961847756,
+        "y": 684.3951927770843
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"my-info\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "yT1mOke1Gvas8isg",
+      "name": "假期余额查询#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 7261.307157243472,
+        "y": 881.6101347310091
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"leave-quota\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "y3ZirpPQVzy0nc0y",
+      "name": "团队考勤#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3999.483601812881,
+        "y": 1001.0813936326352
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"team-attendance\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "mChm0J5AlWsC9ahq",
+      "name": "移动排班#13",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3930.636725796804,
+        "y": 1752.4014125591093
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"mobile-schedule\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "nZEOxbEMZrWh64zk",
+      "name": "打卡明细#13",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 4009.5666435356516,
+        "y": 2162.332284295604
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"punch-details\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "bOP9IoueGJKgJbu0",
+      "name": "原始打卡记录#13",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 3999.483601812881,
+        "y": 2501.050634849263
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"punch-card-records\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "gpLWK5uJrirntajE",
+      "name": "我的排班#13",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2330.762494971948,
+        "y": -1040.6543363634403
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \" scheduling\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "liQcOI8XbEwgYTp0",
+      "name": "考勤统计#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2431.1716983081774,
+        "y": -703.9053692944615
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"attendance-statistics\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "vb84CAsQHVdsQKuV",
+      "name": "加班申请#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2480.70885775166,
+        "y": -391.950278716053
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"request-overtime\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "rhwJWYlg7rpdvTUu",
+      "name": "我的表单#12",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2480.70885775166,
+        "y": -40.27241418614685
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{\n   \"businessType\": \"page_jump\",\n   \"permissionCode\": \"my-forms\"\n}",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "rXe9UlcMP7Vncltb",
+      "name": "问题分类#3",
+      "intro": "根据用户的历史记录和当前问题判断该次提问的类型。可以添加多组问题类型，下面是一个模板例子:\n类型1: 打招呼\n类型2: 关于商品“使用”问题\n类型3: 关于商品“购买”问题\n类型4: 其他问题",
+      "avatar": "core/workflow/template/questionClassify",
+      "flowNodeType": "classifyQuestion",
+      "showStatus": true,
+      "position": {
+        "x": 5051.3237505087245,
+        "y": 1130.332284295604
+      },
+      "version": "4.9.2",
+      "inputs": [
+        {
+          "key": "model",
+          "renderTypeList": [
+            "selectLLMModel",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.aiModel",
+          "required": true,
+          "valueType": "string",
+          "llmModelType": "classify",
+          "value": "ali_deepseek-v3.2",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "systemPrompt",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "max": 3000,
+          "valueType": "string",
+          "label": "common:core.module.input.label.Background",
+          "description": "common:core.module.input.description.Background",
+          "placeholder": "common:core.module.input.placeholder.Classify background",
+          "value": "### 分类任务：假期余额查询意图识别\n\n请判断用户查询的意图类别，仅输出以下两个标签之一：\n`个人` 或 `团队`\n\n#### 分类规则：\n- 输出 `个人` 当且仅当：\n  - 查询的是**用户自己**的假期余额；\n  - 使用了“我”、“我的”或语义上明显指代自身（如“我还剩多少”）；\n  - **没有提及任何其他具体人名**（如张三、李四等）；\n  - 没有使用集体性词汇。\n\n- 输出 `团队` 当：\n  - 提到了**任何非自身的具体人名**（如“张三”、“李四”）；\n  - 使用了集体表述（如“我们”、“大家”、“团队”、“部门”）；\n  - 查询的是他人或群体的假期情况；\n  - 即使语法上像个人，但涉及他人即归为团队。\n\n📌 特别注意：\n- “我” → 个人\n- “我和张三”、“张三还有吗”、“看看李四的” → 团队\n- “我们”（包含他人）→ 团队\n- 未提人名但语境为自己 → 个人\n",
+          "debugLabel": "",
+          "toolDescription": "",
+          "maxLength": 100000,
+          "isRichText": true
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0,
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "用户输入的问题（问题需要完善）",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "debugLabel": ""
+        },
+        {
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "label": "",
+          "key": "agents",
+          "value": [
+            {
+              "value": "团队假期余额查询",
+              "key": "wqre"
+            },
+            {
+              "value": "个人假期余额查询",
+              "key": "sdfa"
+            }
+          ],
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "cqResult",
+          "key": "cqResult",
+          "required": true,
+          "label": "workflow:classification_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "bLS51pGxn1323EEI",
+      "name": "AI考勤-查询假期余额#2",
+      "intro": "",
+      "avatar": "core/app/type/workflowFill",
+      "flowNodeType": "appModule",
+      "showStatus": true,
+      "position": {
+        "x": 6526.717402592616,
+        "y": 1613.2575079059127
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_forbid_stream",
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "label": "workflow:template.forbid_stream",
+          "description": "workflow:template.forbid_stream_desc",
+          "value": false
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "workflow:user_question_tool_desc",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ]
+        },
+        {
+          "key": "employeeId",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "employeeId",
+          "debugLabel": "employeeId",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.employeeId$}}"
+        },
+        {
+          "key": "client_secret",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "client_secret",
+          "debugLabel": "client_secret",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.client_secret$}}"
+        },
+        {
+          "key": "corp_id",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "corp_id",
+          "debugLabel": "corp_id",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.corp_id$}}"
+        },
+        {
+          "key": "grant_type",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "grant_type",
+          "debugLabel": "grant_type",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.grant_type$}}"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "common:core.module.output.description.New context",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": false,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "common:core.module.output.description.Ai response content",
+          "valueType": "string",
+          "type": "static"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text"
+        }
+      ],
+      "pluginId": "67e29c66da9910825aa183c8",
+      "catchError": false
+    },
+    {
+      "nodeId": "jONYKu4i2evpkYoM",
+      "name": "判断器",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": 1327.0993616485257,
+        "y": 3054.019146679122
+      },
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "OR",
+              "list": [
+                {
+                  "variable": [
+                    "i1rrhTKOc0WGSLQf",
+                    "qLUQfhG0ILRX"
+                  ],
+                  "condition": "equalTo",
+                  "value": "符合",
+                  "valueType": "input"
+                }
+              ]
+            }
+          ],
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "rxZI6yQI4ilogLkp",
+      "name": "代码运行",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 3632.393501219311,
+        "y": 3301.836068460478
+      },
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "js",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "function main({data1}){\n    // 将隐藏的换行符显性展示出来\n    const processedResult = data1.replace(/\\n/g, '\\\\n')\n                                .replace(/\\r/g, '\\\\r')\n                                .replace(/\\t/g, '\\\\t');\n    \n    const result = {\n        businessType: \"consult\",\n        result: processedResult\n    };\n    \n    return {\n        result: result\n    }\n}\n",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "ew6iImBkbNtY3xCz",
+            "answerText"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "valueType": "string",
+          "type": "error",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        },
+        {
+          "id": "qLUQfhG0ILRX",
+          "type": "dynamic",
+          "key": "result",
+          "valueType": "string",
+          "label": "result",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "nqwZmHi4WMOcHMcv",
+      "name": "指定回复#14",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 4590,
+        "y": 3405
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "{{$rxZI6yQI4ilogLkp.qLUQfhG0ILRX$}}",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "i1rrhTKOc0WGSLQf",
+      "name": "代码运行#2",
+      "intro": "执行一段简单的脚本代码，通常用于进行复杂的数据处理。",
+      "avatar": "core/workflow/template/codeRun",
+      "flowNodeType": "code",
+      "showStatus": true,
+      "position": {
+        "x": 485.2369688522572,
+        "y": 2670
+      },
+      "inputs": [
+        {
+          "key": "system_addInputParam",
+          "renderTypeList": [
+            "addInputParam"
+          ],
+          "valueType": "dynamic",
+          "label": "",
+          "required": false,
+          "description": "workflow:these_variables_will_be_input_parameters_for_code_execution",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "codeType",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "js",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "code",
+          "renderTypeList": [
+            "custom"
+          ],
+          "label": "",
+          "valueType": "string",
+          "value": "function main({data1}){\n    const result = data1.includes(\"#AICS-AQ#\") ? \"符合\" : \"不符合\";\n    return {\n        result: result\n    }\n}",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "renderTypeList": [
+            "reference"
+          ],
+          "valueType": "string",
+          "canEdit": true,
+          "key": "data1",
+          "label": "data1",
+          "customInputConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": true
+          },
+          "required": true,
+          "value": [
+            "VARIABLE_NODE_ID",
+            "wCJ2RCGE"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "system_rawResponse",
+          "key": "system_rawResponse",
+          "label": "workflow:full_response_data",
+          "valueType": "object",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "error",
+          "key": "error",
+          "label": "workflow:error_text",
+          "valueType": "string",
+          "type": "error",
+          "valueDesc": "",
+          "description": ""
+        },
+        {
+          "id": "system_addOutputParam",
+          "key": "system_addOutputParam",
+          "type": "dynamic",
+          "valueType": "dynamic",
+          "label": "",
+          "customFieldConfig": {
+            "selectValueTypeList": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "arrayString",
+              "arrayNumber",
+              "arrayBoolean",
+              "arrayObject",
+              "arrayAny",
+              "any",
+              "chatHistory",
+              "datasetQuote",
+              "dynamic",
+              "selectDataset",
+              "selectApp"
+            ],
+            "showDescription": false,
+            "showDefaultValue": false
+          },
+          "description": "将代码中 return 的对象作为输出，传递给后续的节点。变量名需要对应 return 的 key",
+          "valueDesc": ""
+        },
+        {
+          "id": "qLUQfhG0ILRX",
+          "type": "dynamic",
+          "key": "result",
+          "valueType": "string",
+          "label": "result",
+          "valueDesc": "",
+          "description": ""
+        }
+      ],
+      "catchError": false
+    },
+    {
+      "nodeId": "i3qLTcFTAnjznwpv",
+      "name": "判断器#2",
+      "intro": "根据一定的条件，执行不同的分支。",
+      "avatar": "core/workflow/template/ifelse",
+      "flowNodeType": "ifElseNode",
+      "showStatus": true,
+      "position": {
+        "x": 326.8019922953422,
+        "y": 356.9928115239577
+      },
+      "inputs": [
+        {
+          "key": "ifElseList",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": [
+            {
+              "condition": "AND",
+              "list": [
+                {
+                  "variable": [
+                    "448745",
+                    "userChatInput"
+                  ],
+                  "condition": "isEmpty",
+                  "valueType": "input"
+                }
+              ]
+            }
+          ],
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "ifElseResult",
+          "key": "ifElseResult",
+          "label": "workflow:judgment_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "b8IUIj6ZysBUSvJc",
+      "name": "指定回复#14",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 1243.6901386203508,
+        "y": 3699.1019288399393
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "咨询服务敬请期待，人力AI助手在努力学习中",
+          "isRichText": false,
+          "maxLength": 100000,
+          "debugLabel": "",
+          "toolDescription": ""
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "sB6VhTFnQjNyTrkz",
+      "name": "测试-AI考勤-获取用户假期权限",
+      "intro": "",
+      "avatar": "core/app/type/workflowFill",
+      "flowNodeType": "appModule",
+      "showStatus": true,
+      "position": {
+        "x": 2070,
+        "y": 1800
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_forbid_stream",
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "label": "workflow:template.forbid_stream",
+          "description": "workflow:template.forbid_stream_desc",
+          "value": false
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 6
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "workflow:user_question_tool_desc",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ]
+        },
+        {
+          "key": "employeeId",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "employeeId",
+          "debugLabel": "employeeId",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.employeeId$}}"
+        },
+        {
+          "key": "client_secret",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "client_secret",
+          "debugLabel": "client_secret",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.client_secret$}}"
+        },
+        {
+          "key": "corp_id",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "corp_id",
+          "debugLabel": "corp_id",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.corp_id$}}"
+        },
+        {
+          "key": "grant_type",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "grant_type",
+          "debugLabel": "grant_type",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "list": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "value": "{{$VARIABLE_NODE_ID.grant_type$}}"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "common:core.module.output.description.New context",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": false,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "common:core.module.output.description.Ai response content",
+          "valueType": "string",
+          "type": "static"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text"
+        }
+      ],
+      "pluginId": "69ddd61e7685cb1df29b258f",
+      "catchError": false
+    },
+    {
+      "nodeId": "ew6iImBkbNtY3xCz",
+      "name": "人力AI咨询（新）",
+      "intro": "当前版本支持考勤咨询（增加了薪酬福利）",
+      "avatar": "/api/system/img/68bff40bdc369ba784e16986.jpeg",
+      "flowNodeType": "appModule",
+      "showStatus": true,
+      "position": {
+        "x": 2640,
+        "y": 3210
+      },
+      "version": "",
+      "inputs": [
+        {
+          "key": "system_forbid_stream",
+          "renderTypeList": [
+            "switch"
+          ],
+          "valueType": "boolean",
+          "label": "workflow:template.forbid_stream",
+          "description": "workflow:template.forbid_stream_desc",
+          "value": true
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "workflow:user_question_tool_desc",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ]
+        },
+        {
+          "key": "uwE1Py8M",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "workYears",
+          "debugLabel": "workYears",
+          "description": "",
+          "valueType": "any",
+          "required": false
+        },
+        {
+          "key": "i2XdlIcj",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "workingYearsInThisUnit",
+          "debugLabel": "workingYearsInThisUnit",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": ""
+        },
+        {
+          "key": "soKBqYSu",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "employeeId",
+          "debugLabel": "employeeId",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "{{$VARIABLE_NODE_ID.employeeId$}}"
+        },
+        {
+          "key": "eDMhmEQe",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "client_secret",
+          "debugLabel": "client_secret",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "{{$VARIABLE_NODE_ID.client_secret$}}"
+        },
+        {
+          "key": "sLLXf8zA",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "corp_id",
+          "debugLabel": "corp_id",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "{{$VARIABLE_NODE_ID.corp_id$}}"
+        },
+        {
+          "key": "wnGoClhT",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "grant_type",
+          "debugLabel": "grant_type",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "{{$VARIABLE_NODE_ID.grant_type$}}"
+        },
+        {
+          "key": "zLEba9t1",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "queryYear",
+          "debugLabel": "queryYear",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": ""
+        },
+        {
+          "key": "z3R9gXSc",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "typeName",
+          "debugLabel": "typeName",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "年假"
+        },
+        {
+          "key": "dbr1YdbJ",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "employee_permission",
+          "debugLabel": "employee_permission",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "1"
+        },
+        {
+          "key": "dh6GPIGF",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "professionalTerm",
+          "debugLabel": "professionalTerm",
+          "description": "",
+          "valueType": "any",
+          "required": false
+        },
+        {
+          "key": "vTf6lD5Q",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "followUpQuestion",
+          "debugLabel": "followUpQuestion",
+          "description": "",
+          "valueType": "any",
+          "required": false,
+          "value": "{{$VARIABLE_NODE_ID.xMiOwrAj$}}"
+        },
+        {
+          "key": "nels2UrE",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "url",
+          "debugLabel": "url",
+          "description": "",
+          "valueType": "any",
+          "required": false
+        },
+        {
+          "key": "lEEF0RmD",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "url1",
+          "debugLabel": "url1",
+          "description": "",
+          "valueType": "any",
+          "required": false
+        },
+        {
+          "key": "k2rulzBr",
+          "renderTypeList": [
+            "input",
+            "reference"
+          ],
+          "label": "historyRecord",
+          "debugLabel": "historyRecord",
+          "description": "",
+          "valueType": "any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "id": "history",
+          "key": "history",
+          "required": true,
+          "label": "common:core.module.output.label.New context",
+          "description": "common:core.module.output.description.New context",
+          "valueType": "chatHistory",
+          "valueDesc": "{\n  obj: System | Human | AI;\n  value: string;\n}[]",
+          "type": "static"
+        },
+        {
+          "id": "answerText",
+          "key": "answerText",
+          "required": false,
+          "label": "common:core.module.output.label.Ai response content",
+          "description": "common:core.module.output.description.Ai response content",
+          "valueType": "string",
+          "type": "static"
+        },
+        {
+          "id": "system_error_text",
+          "key": "system_error_text",
+          "type": "error",
+          "valueType": "string",
+          "label": "workflow:error_text"
+        }
+      ],
+      "pluginId": "693a2937640a93e6f3f217dc",
+      "catchError": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "xh2XCD3ZgELGZ3l9",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-dkSeMQQdNt545zGU",
+      "targetHandle": "xh2XCD3ZgELGZ3l9-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "dy1nArkgUPhvAh7i",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-xRHCwv4D6MDxRyEN",
+      "targetHandle": "dy1nArkgUPhvAh7i-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "qrINWieMEyv76rat",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-lUTsa141QsKKWUAK",
+      "targetHandle": "qrINWieMEyv76rat-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "mChm0J5AlWsC9ahq",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-vRbh6diPF9zJ6Jkc",
+      "targetHandle": "mChm0J5AlWsC9ahq-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "nZEOxbEMZrWh64zk",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-lPqDvCdSswcfQsZs",
+      "targetHandle": "nZEOxbEMZrWh64zk-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "bOP9IoueGJKgJbu0",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-kCwbs5SBUZrUZ8MF",
+      "targetHandle": "bOP9IoueGJKgJbu0-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "gpLWK5uJrirntajE",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-wqre",
+      "targetHandle": "gpLWK5uJrirntajE-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "liQcOI8XbEwgYTp0",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-sdfa",
+      "targetHandle": "liQcOI8XbEwgYTp0-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "vb84CAsQHVdsQKuV",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-agex",
+      "targetHandle": "vb84CAsQHVdsQKuV-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "rhwJWYlg7rpdvTUu",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-hqHJffcnVmVBXJOl",
+      "targetHandle": "rhwJWYlg7rpdvTUu-target-left"
+    },
+    {
+      "source": "rXe9UlcMP7Vncltb",
+      "target": "bLS51pGxn1323EEI",
+      "sourceHandle": "rXe9UlcMP7Vncltb-source-sdfa",
+      "targetHandle": "bLS51pGxn1323EEI-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "y3ZirpPQVzy0nc0y",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-vT5V3SKsF1AFVxxN",
+      "targetHandle": "y3ZirpPQVzy0nc0y-target-left"
+    },
+    {
+      "source": "rUbxt6b3uXDmi3W8",
+      "target": "rXe9UlcMP7Vncltb",
+      "sourceHandle": "rUbxt6b3uXDmi3W8-source-vJ5b4Zgo7MWtdLVL",
+      "targetHandle": "rXe9UlcMP7Vncltb-target-left"
+    },
+    {
+      "source": "rXe9UlcMP7Vncltb",
+      "target": "yT1mOke1Gvas8isg",
+      "sourceHandle": "rXe9UlcMP7Vncltb-source-wqre",
+      "targetHandle": "yT1mOke1Gvas8isg-target-left"
+    },
+    {
+      "source": "rxZI6yQI4ilogLkp",
+      "target": "nqwZmHi4WMOcHMcv",
+      "sourceHandle": "rxZI6yQI4ilogLkp-source-right",
+      "targetHandle": "nqwZmHi4WMOcHMcv-target-left"
+    },
+    {
+      "source": "rUu17XsNflrhtxB7",
+      "target": "i1rrhTKOc0WGSLQf",
+      "sourceHandle": "rUu17XsNflrhtxB7-source-sdfa",
+      "targetHandle": "i1rrhTKOc0WGSLQf-target-left"
+    },
+    {
+      "source": "i1rrhTKOc0WGSLQf",
+      "target": "jONYKu4i2evpkYoM",
+      "sourceHandle": "i1rrhTKOc0WGSLQf-source-right",
+      "targetHandle": "jONYKu4i2evpkYoM-target-left"
+    },
+    {
+      "source": "448745",
+      "target": "i3qLTcFTAnjznwpv",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "i3qLTcFTAnjznwpv-target-left"
+    },
+    {
+      "source": "i3qLTcFTAnjznwpv",
+      "target": "rUu17XsNflrhtxB7",
+      "sourceHandle": "i3qLTcFTAnjznwpv-source-ELSE",
+      "targetHandle": "rUu17XsNflrhtxB7-target-left"
+    },
+    {
+      "source": "i3qLTcFTAnjznwpv",
+      "target": "rUbxt6b3uXDmi3W8",
+      "sourceHandle": "i3qLTcFTAnjznwpv-source-IF",
+      "targetHandle": "rUbxt6b3uXDmi3W8-target-left"
+    },
+    {
+      "source": "jONYKu4i2evpkYoM",
+      "target": "b8IUIj6ZysBUSvJc",
+      "sourceHandle": "jONYKu4i2evpkYoM-source-ELSE",
+      "targetHandle": "b8IUIj6ZysBUSvJc-target-left"
+    },
+    {
+      "source": "rUu17XsNflrhtxB7",
+      "target": "sB6VhTFnQjNyTrkz",
+      "sourceHandle": "rUu17XsNflrhtxB7-source-wqre",
+      "targetHandle": "sB6VhTFnQjNyTrkz-target-left"
+    },
+    {
+      "source": "jONYKu4i2evpkYoM",
+      "target": "ew6iImBkbNtY3xCz",
+      "sourceHandle": "jONYKu4i2evpkYoM-source-IF",
+      "targetHandle": "ew6iImBkbNtY3xCz-target-left"
+    },
+    {
+      "source": "ew6iImBkbNtY3xCz",
+      "target": "rxZI6yQI4ilogLkp",
+      "sourceHandle": "ew6iImBkbNtY3xCz-source-right",
+      "targetHandle": "rxZI6yQI4ilogLkp-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [
+      {
+        "id": "iavt77",
+        "key": "employeeId",
+        "label": "employeeId",
+        "type": "custom",
+        "description": "员工编号",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "21333961",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "b92w6q",
+        "key": "client_secret",
+        "label": "client_secret",
+        "type": "custom",
+        "description": "创建应用时候自动生成(应用秘钥)",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "e7390500754e444388da37e811a6b69b",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "w5wvez",
+        "key": "corp_id",
+        "label": "corp_id",
+        "type": "custom",
+        "description": "企业Code即为每个企业都拥有的一个唯一的corpid",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "snowbeertest",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "xaozgh",
+        "key": "grant_type",
+        "label": "grant_type",
+        "type": "custom",
+        "description": "固定值，客户端模式",
+        "required": false,
+        "valueType": "string",
+        "list": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ],
+        "defaultValue": "client_credentials",
+        "enums": [
+          {
+            "value": "",
+            "label": ""
+          }
+        ]
+      },
+      {
+        "key": "oKrPKK1A",
+        "label": "form_ldap",
+        "type": "custom",
+        "description": "账号名字",
+        "required": false,
+        "valueType": "string",
+        "defaultValue": ""
+      },
+      {
+        "key": "wCJ2RCGE",
+        "label": "allAuthCodes",
+        "type": "custom",
+        "description": "",
+        "required": false,
+        "valueType": "string",
+        "defaultValue": ""
+      },
+      {
+        "type": "custom",
+        "key": "xMiOwrAj",
+        "label": "followUpQuestion",
+        "valueType": "string",
+        "description": "咨询追问",
+        "required": false,
+        "defaultValue": "0"
+      }
+    ],
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    },
+    "_id": "689ab222d21cd77d58d95737"
+  }
+}

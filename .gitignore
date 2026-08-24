@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+
+# 工具/工作区
+.omc/
+.workbuddy/
+
+# Python / 虚拟环境
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 密钥与环境变量（绝不提交）
+.env
+.env.local
+*.secrets.json
+.runtime-secrets.json
+.stage1-cloud-state.json
+
+# 日志
+tests/eval/logs/
+tests/e2e/logs/
+
+# hr-agent 中由外层统一忽略的构建/配置产物
+hr-agent/agentkit.yaml
+hr-agent/requirements.txt
+hr-agent/Dockerfile
+hr-agent/.dockerignore

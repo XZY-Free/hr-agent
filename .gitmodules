@@ -1,0 +1,3 @@
+[submodule "hr-agent"]
+	path = hr-agent
+	url = git@github.com:XZY-Free/hr-agent-core.git

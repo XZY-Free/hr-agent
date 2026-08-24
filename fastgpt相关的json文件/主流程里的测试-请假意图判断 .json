@@ -1,0 +1,379 @@
+﻿{
+  "nodes": [
+    {
+      "nodeId": "userGuide",
+      "name": "common:core.module.template.system_config",
+      "intro": "common:core.module.template.system_config_info",
+      "avatar": "core/workflow/template/systemConfig",
+      "flowNodeType": "userGuide",
+      "position": {
+        "x": 262.2732338817093,
+        "y": -476.00241136598146
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "welcomeText",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "string",
+          "label": "core.app.Welcome Text",
+          "value": ""
+        },
+        {
+          "key": "variables",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "core.app.Chat Variable",
+          "value": []
+        },
+        {
+          "key": "questionGuide",
+          "valueType": "any",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "label": "core.app.Question Guide",
+          "value": {
+            "open": false
+          }
+        },
+        {
+          "key": "tts",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "type": "web"
+          }
+        },
+        {
+          "key": "whisper",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": {
+            "open": false,
+            "autoSend": false,
+            "autoTTSResponse": false
+          }
+        },
+        {
+          "key": "scheduleTrigger",
+          "renderTypeList": [
+            "hidden"
+          ],
+          "valueType": "any",
+          "label": "",
+          "value": null
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "448745",
+      "name": "common:core.module.template.work_start",
+      "intro": "",
+      "avatar": "core/workflow/template/workflowStart",
+      "flowNodeType": "workflowStart",
+      "position": {
+        "x": 818.8074428345573,
+        "y": -331.25423974802186
+      },
+      "version": "481",
+      "inputs": [
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "required": true,
+          "toolDescription": "用户问题",
+          "debugLabel": ""
+        }
+      ],
+      "outputs": [
+        {
+          "id": "userChatInput",
+          "key": "userChatInput",
+          "label": "common:core.module.input.label.user question",
+          "type": "static",
+          "valueType": "string",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "dsgTRl2GQ8mtlXZF",
+      "name": "问题分类",
+      "intro": "根据用户的历史记录和当前问题判断该次提问的类型。可以添加多组问题类型，下面是一个模板例子:\n类型1: 打招呼\n类型2: 关于商品“使用”问题\n类型3: 关于商品“购买”问题\n类型4: 其他问题",
+      "avatar": "core/workflow/template/questionClassify",
+      "flowNodeType": "classifyQuestion",
+      "showStatus": true,
+      "position": {
+        "x": 1215.830147854194,
+        "y": -530.7129822701917
+      },
+      "version": "4.9.2",
+      "inputs": [
+        {
+          "key": "model",
+          "renderTypeList": [
+            "selectLLMModel",
+            "reference"
+          ],
+          "label": "common:core.module.input.label.aiModel",
+          "required": true,
+          "valueType": "string",
+          "llmModelType": "classify",
+          "value": "qwen-plus",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "systemPrompt",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "max": 3000,
+          "valueType": "string",
+          "label": "common:core.module.input.label.Background",
+          "description": "common:core.module.input.description.Background",
+          "placeholder": "common:core.module.input.placeholder.Classify background",
+          "value": "### 意图分类规则\n\n请根据以下优先级顺序，分析用户输入的意图，并输出对应的分类标签。请严格执行判定逻辑，特别是关于【请假申请】的边界限制。\n\n---\n\n### 🔴 规则1：【请假意图】\n**⚠️ 核心判定原则（必须同时满足“未触发强制排除”与“符合判定条件”）：**\n\n**🚫 第一步：强制排除（一票否决）**\n如果输入中包含以下任意一种情况，**即使存在请假动词，也必须立即排除出【请假意图】**，直接按后续规则归类：\n 1. **系统异常/反问追问**：包含疑问词（为什么、为啥、怎么回事）或异常/报错描述（是0、不对、报错、点不了、失败、没数据）。\n 2. **主观犹豫/情绪宣泄**：包含对是否请假的纠结、担忧或单纯的情绪表达（不知道批不批、好纠结、敢不敢、太累了、烦）。\n\n**✅ 第二步：判定条件（未触发强制排除时适用，满足其一即可）**\n 1. **显性意图表达**：必须包含明确的动作动词（请假、休、申请、改、换、填等）。\n    * 例：“我想请假”、“下周休”、“申请调休”、“要请一天”。\n    * **改细节**：“时间改成明天”、“换成病假”、“理由写家里有事”。\n 2. **纯时间要素**：输入内容**仅包含**时间/日期信息，且无其他无关业务词汇。\n    * 例：“明天”、“下周三”、“下午”、“2024-03-01”、“三天”。\n\n**❌ 无效排除（不算请假申请）：**\n* **复合异常追问**：“我想请假，但是我不知道现在还有没有假” → 触发异常强制排除，**归为【咨询意图】**。\n* **主观犹豫陈述**：“我想请假，但不知道老板批不批” → 触发犹豫强制排除，**归为【咨询意图】**。\n* **纯类型/理由**：“年假”、“去医院”、“家里有事” → 无动词，**归为【咨询意图】或【其他意图】**。\n\n👉 示例对比：\n* “明天” → 【请假申请】（符合纯时间）\n* “明天年假” → 【请假申请】（隐含意图：时间+类型组合，视为快捷申请）\n* “我想休年假，系统卡了” → 【咨询意图】（包含异常描述，触发一票否决）\n* “有点想请假，怕领导不高兴” → 【咨询意图】（包含情绪担忧，触发一票否决）\n\n---\n\n### 🟠 规则2：【取消请假】\n判定逻辑：用户明确要求撤回、撤销、取消已提交的请假申请。\n* **关键词**：取消、撤销、撤回、销假、不请了、不要了。\n* **条件**：需包含上述关键词，且通常提及“请假”、“申请”或具体假期类型。\n\n👉 示例：\n* “取消明天的请假” / “我不想请了” → 【取消请假】\n\n---\n\n### 🟡 规则3：【咨询意图】\n判定逻辑：用户对规则、流程、余额或状态提出疑问，或输入单纯的名词进行询问，且无明确申请/取消动作。\n* **疑问词**：怎么、如何、需要、是否、能否、可以吗、有没有、多久、多少、什么。\n* **纯名词询问**：仅输入假期类型名称（无动词）。\n* **主题**：请假流程、天数、审批状态、余额查询、资格条件。\n\n👉 示例：\n* “年假有几天？” / “年假” / “病假怎么申请？” / “看我还有多少余额” → 【咨询意图】\n\n---\n\n## ⚪ 规则4：【其他意图】\n判定逻辑：涉及考勤、排班、加班等功能性查询或操作，或无明确业务含义的闲聊/陈述。\n*   **特定关键词**：我的排班、考勤统计、加班申请、我的表单、打卡、异常、加班余额。\n*   **纯理由陈述**：仅陈述事实/理由，无请假动词。\n\n👉 示例：\n*   “查看考勤统计” → 【其他意图】\n*   “提交加班申请” → 【其他意图】\n*   “你好” → 【其他意图】\n*   “去医院” → 【其他意图】（纯理由，无“请假/申请”等动词）\n---\n\n📌 执行要求：\n\n1. 严格按优先级 1→2→3→4 判断。\n2. **边界严格控制**：严禁将仅输入“假期类型”（如“年假”）判定为【请假意图】，严禁将带有“异常/报错/为什么/不敢/纠结”的输入判定为【请假意图】，该类输入应优先判定为【咨询意图】。\n3.  输出仅返回一个类别标签（如：【请假意图】），不要解释。",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "maxLength": 100000,
+          "isRichText": true
+        },
+        {
+          "key": "history",
+          "renderTypeList": [
+            "numberInput",
+            "reference"
+          ],
+          "valueType": "chatHistory",
+          "label": "common:core.module.input.label.chat history",
+          "description": "workflow:max_dialog_rounds",
+          "required": true,
+          "min": 0,
+          "max": 50,
+          "value": 0,
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": ""
+        },
+        {
+          "key": "userChatInput",
+          "renderTypeList": [
+            "reference",
+            "textarea"
+          ],
+          "valueType": "string",
+          "label": "workflow:user_question",
+          "toolDescription": "用户输入的问题（问题需要完善）",
+          "required": true,
+          "value": [
+            "448745",
+            "userChatInput"
+          ],
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": ""
+        },
+        {
+          "renderTypeList": [
+            "custom"
+          ],
+          "valueType": "any",
+          "label": "",
+          "valueDesc": "",
+          "description": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "key": "agents",
+          "value": [
+            {
+              "value": "请假意图",
+              "key": "wqre"
+            },
+            {
+              "value": "其他意图",
+              "key": "sdfa"
+            },
+            {
+              "value": "咨询意图",
+              "key": "fG1fF5USos3qac1g"
+            },
+            {
+              "value": "取消请假",
+              "key": "dxmC2W2Z6sH6pxMQ"
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "id": "cqResult",
+          "key": "cqResult",
+          "required": true,
+          "label": "workflow:classification_result",
+          "valueType": "string",
+          "type": "static",
+          "valueDesc": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "nodeId": "kUPrfVLvKzFoj05b",
+      "name": "指定回复",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2310,
+        "y": -285
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "请假意图",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "bp2cNHUvkYXcrxGX",
+      "name": "指定回复#2",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2445,
+        "y": 765
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "其他意图",
+          "valueDesc": "",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "nodeId": "krJLEMRXaZXD0oy5",
+      "name": "指定回复#3",
+      "intro": "该模块可以直接回复一段指定的内容。常用于引导、提示。非字符串内容传入时，会转成字符串进行输出。",
+      "avatar": "core/workflow/template/reply",
+      "flowNodeType": "answerNode",
+      "position": {
+        "x": 2385.660826756087,
+        "y": 325.30952071881234
+      },
+      "inputs": [
+        {
+          "key": "text",
+          "renderTypeList": [
+            "textarea",
+            "reference"
+          ],
+          "valueType": "any",
+          "required": true,
+          "label": "common:core.module.input.label.Response content",
+          "description": "common:core.module.input.description.Response content",
+          "placeholder": "common:core.module.input.description.Response content",
+          "value": "咨询意图",
+          "debugLabel": "",
+          "toolDescription": "",
+          "isRichText": false,
+          "maxLength": 100000
+        }
+      ],
+      "outputs": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "448745",
+      "target": "dsgTRl2GQ8mtlXZF",
+      "sourceHandle": "448745-source-right",
+      "targetHandle": "dsgTRl2GQ8mtlXZF-target-left"
+    },
+    {
+      "source": "dsgTRl2GQ8mtlXZF",
+      "target": "bp2cNHUvkYXcrxGX",
+      "sourceHandle": "dsgTRl2GQ8mtlXZF-source-sdfa",
+      "targetHandle": "bp2cNHUvkYXcrxGX-target-left"
+    },
+    {
+      "source": "dsgTRl2GQ8mtlXZF",
+      "target": "bp2cNHUvkYXcrxGX",
+      "sourceHandle": "dsgTRl2GQ8mtlXZF-source-dxmC2W2Z6sH6pxMQ",
+      "targetHandle": "bp2cNHUvkYXcrxGX-target-left"
+    },
+    {
+      "source": "dsgTRl2GQ8mtlXZF",
+      "target": "krJLEMRXaZXD0oy5",
+      "sourceHandle": "dsgTRl2GQ8mtlXZF-source-fG1fF5USos3qac1g",
+      "targetHandle": "krJLEMRXaZXD0oy5-target-left"
+    },
+    {
+      "source": "dsgTRl2GQ8mtlXZF",
+      "target": "kUPrfVLvKzFoj05b",
+      "sourceHandle": "dsgTRl2GQ8mtlXZF-source-wqre",
+      "targetHandle": "kUPrfVLvKzFoj05b-target-left"
+    }
+  ],
+  "chatConfig": {
+    "variables": [],
+    "scheduledTriggerConfig": {
+      "cronString": "",
+      "timezone": "Asia/Shanghai",
+      "defaultPrompt": ""
+    },
+    "_id": "689be692492524d8fec1ab89"
+  }
+}
